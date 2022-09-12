@@ -562,4 +562,29 @@ Bad Quality Code Explanation and how to fix it by **M@P**
         some process and return;
     }
 
+## **LONG LIST PARAMETER**
+
+    public String processMenu(String name, String color, String source,  int width, int Long, String taste, String cameFrom ){
+        .....
+    }
+
+>  make those param simple, or make object first 
+
+    public String processMenu(Food food){
+        .....
+    }
+
+## **HARDCODED VARIABLE**
+
+    private String nameOfInstances = "INSTANCES_1";
+    private int maxFileSize = 2048;
+
+> this kind of code make static data and hard to manage
+
+    always use database to store that kind of configuration we can make an sys_app_config table to store those data. and when we want using it, we can call it from database;
+
+    public String getSomeVariable() {
+        appConfig.repository.getByKey("MAX_FILE_SIZE");
+        appConfig.repository.getByKey("NAME_OF_INSTANCES");
+    }
 
