@@ -55,7 +55,7 @@ Bad Quality Code Explanation and how to fix it by **M@P**
 
     }
 
->this kind of declaration variable can be dangerous, because the global data can be changed from multiple method and multiple call on busy trafic. We can fix it like code bellow
+>this kind of variable declaration can be dangerous, because the global data can be changed from multiple method and multiple call on busy trafic. We can fix it like code bellow
 
 
     public class ObjectService {
@@ -309,13 +309,257 @@ Bad Quality Code Explanation and how to fix it by **M@P**
 > There are many options to handle this error, first we will try to send null data as a response like this.
 
     @GetMapping(value = "data")
-    public TransactionDataWrapper getData(@RequestParam Long id)   {
+    public CommonResponse<Object> getData(@RequestParam Long id)   {
         try {
-            return transactionDataService.findById(id);
+            return commonResponse.successHandler(objectService.getDataById(id));
         } catch (Exception e) {
-            return new TransactionDataWrapper();
+            return commonResponse.errorHandler(e.getMessage());
         }
     }
 
+## **Method Too Much IF**
+
+    public String processing(String name, String color, Object object1, OtherObject object2, int width ){
+        String mustReturnThisValue = "";
+
+            if(name.toUpperCase(Locale.ROOT).contains("RICK")) {
+                ..
+                someprocess
+                ..
+            } else if(name.toUpperCase(Locale.ROOT).contains("JOHN")) {
+                ..
+                someprocess
+                ..
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+        
+
+            if(color.toUpperCase(Locale.ROOT).contains("RED")) {
+                 ..
+                someprocess
+                ..
+            } else if(color.toUpperCase(Locale.ROOT).contains("GREEN")) {
+                 ..
+                someprocess
+                ..
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+
+            if(object1.getIntProperty() < 50 ) {
+                if(object1.getIntProperty() < 10 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 20 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 30 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 40 ) {
+                 ..
+                someprocess
+                ..
+            } else  {
+                 ..
+                someprocess
+                ..
+                } 
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+        
+            if(object2.getIntProperty() < 50 ) {
+            if(object2.getIntProperty() < 10 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 20 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 30 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 40 ) {
+                 ..
+                someprocess
+                ..
+            } else  {
+
+                }
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+        
+
+        if(object1.getIntProperty() < 50 ) {
+            if(width < 10)) {
+                 ..
+                someprocess
+                ..
+            } else if (width < 20) {
+                 ..
+                someprocess
+                ..
+            }else {
+            ..
+                someprocess
+                ..
+            }
+            
+        } else {
+                 ..
+                someprocess
+                ..
+            }
+
+        return mustReturnThisValue;
+    }
+
+> this code is called a complex code, we can refractore the code to make this code better, even if this code have to many condition.
+
+
+*create method to become a part of process*
+
+    public String checkName(String name) {
+    if(name.toUpperCase(Locale.ROOT).contains("RICK")) {
+                ..
+                someprocess
+                ..
+            } else if(name.toUpperCase(Locale.ROOT).contains("JOHN")) {
+                ..
+                someprocess
+                ..
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+    }
+
+    public String checkColor(String color) {
+    if(color.toUpperCase(Locale.ROOT).contains("RED")) {
+                 ..
+                someprocess
+                ..
+            } else if(color.toUpperCase(Locale.ROOT).contains("GREEN")) {
+                 ..
+                someprocess
+                ..
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+    }
+
+
+    public String checkObject1(Object1 object1) {
+    if(object1.getIntProperty() < 50 ) {
+                if(object1.getIntProperty() < 10 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 20 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 30 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object1.getIntProperty() < 40 ) {
+                 ..
+                someprocess
+                ..
+            } else  {
+                 ..
+                someprocess
+                ..
+                } 
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+    }
+
+    public String checkObject2(Object2 object2) {
+    if(object2.getIntProperty() < 50 ) {
+            if(object2.getIntProperty() < 10 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 20 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 30 ) {
+                 ..
+                someprocess
+                ..
+            } else if (object2.getIntProperty() < 40 ) {
+                 ..
+                someprocess
+                ..
+            } else  {
+
+                }
+            } else {
+                 ..
+                someprocess
+                ..
+            }
+    }
+
+
+    public String checkWidth(int width) {
+            if(width < 10)) {
+                 ..
+                someprocess
+                ..
+            } else if (width < 20) {
+                 ..
+                someprocess
+                ..
+            }else {
+            ..
+                someprocess
+                ..
+            }
+            
+        } else {
+                 ..
+                someprocess
+                ..
+            }
+    }
+
+> edit the method 
+
+    public String processing(String name, String color, Object object1, OtherObject object2, int width ){
+
+        checkName(name);
+        checkColor(color);
+        checkObject1(object1);
+        checkObject2(object2);
+        checkWidth(width);
+
+        some process and return;
+    }
 
 
