@@ -588,3 +588,15 @@ Bad Quality Code Explanation and how to fix it by **M@P**
         appConfig.repository.getByKey("NAME_OF_INSTANCES");
     }
 
+## **LOGGING WITHOUT INFORMATION**
+
+    System.out.println("this is log");
+    System.out.println("up to this line");
+    System.out.println("this line meaning done");
+
+>   use LoggerFactory instead of System.out.println();
+>   use level of log and make better information
+
+    logger.info(String.format("A new customer has been created with customer Id: %s", id);
+
+    logger.error(e.getMessage());
