@@ -14,8 +14,8 @@ Bad Quality Code Explanation and how to fix it by **M@P**
 
 > avoid variable duplication like this with give a variable a proper name
 
-    String titleText = "This Should Be a Title of the Page";
-    String footerText = "This Should be a Footer Notes of the Page";
+    String title = "This Should Be a Title of the Page";
+    String footer = "This Should be a Footer Notes of the Page";
 
 ## **Using Global Variable to Store Data**
 ---
